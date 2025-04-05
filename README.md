@@ -61,10 +61,10 @@ zip -r ../cloud_function.zip .
 
 Archivo terraform.tfvars:
 
-project_id    = "tu-proyecto"
+project_id    = "wom-p1"
 region        = "us-central1"
-bucket_name   = "event-driven-bucket"
-function_name = "gcs-trigger-function"
+bucket_name   = "wom-bucket-demo"
+function_name = "wom-gcs-trigger-function"
 
 Inicializa y aplica:
 
