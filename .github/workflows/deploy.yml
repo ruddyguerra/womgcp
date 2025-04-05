@@ -1,12 +1,13 @@
-name: Deploy Cloud Function with Terraform
+name: Deploy Cloud Function and DAG to GCS
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
@@ -27,3 +28,25 @@ jobs:
 
       - name: Aplicar Terraform
         run: terraform -chdir=terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
+
+      # Subir el código de la Cloud Function a GCS
+      - name: Subir archivo de la Cloud Function a GCS
+        run: |
+          gsutil cp ./cloud_function.zip gs://wom-bucket-demo/function-source.zip
+
+      # Subir el archivo DAG a GCS
+      - name: Subir archivo DAG a GCS
+        run: |
+          gsutil cp ./dags/gcs_to_bq_dag.py gs://wom-bucket-demo/dags/
+
+      # Desplegar la Cloud Function usando el archivo subido
+      - name: Desplegar Cloud Function en GCP
+        run: |
+          gcloud functions deploy your-function-name \
+            --entry-point hello_gcs \
+            --runtime python311 \
+            --trigger-resource gs://wom-bucket-demo \
+            --trigger-event google.storage.object.finalize \
+            --region us-central1 \
+            --memory 128MB \
+            --env-vars-file .env.yaml
