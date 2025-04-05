@@ -15,17 +15,21 @@ Este proyecto implementa una arquitectura en Google Cloud orientada a eventos. U
 
 .
 ├── .github/workflows/deploy.yml
+|
 ├── cloud_function/
 │   ├── main.py
 │   └── requirements.txt
+|
 ├── dags/
 │   └── gcs_to_bq_dag.py
+|
 ├── terraform/
 │   ├── main.tf
 │   ├── variables.tf
 │   ├── terraform.tfvars
 │   ├── outputs.tf
 │   └── provider.tf
+|
 └── README.md
 
 
