@@ -88,7 +88,7 @@ Crear un secreto en GitHub: Para que GitHub Actions pueda autenticarse con Googl
 Luego, agrega los siguientes secretos:
 
 - **`GCP_PROJECT_ID`**: El ID de tu proyecto en Google Cloud.  
-  Ejemplo: `my-gcp-project-id`.
+  Ejemplo: `wom-p1`.
 
 - **`GCP_CREDENTIALS_JSON`**: El contenido del archivo JSON de la cuenta de servicio de Google Cloud.  
   Para obtener este archivo:
