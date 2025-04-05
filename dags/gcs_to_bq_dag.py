@@ -6,10 +6,10 @@ from datetime import datetime
 # Parámetros del entorno (ajustables)
 PROJECT_ID = "tu-proyecto"
 DATASET = "mi_dataset"
-TABLE_RAW = "mi_tabla_raw"
-TABLE_FINAL = "mi_tabla_final"
+TABLE_RAW = "paises_raw"
+TABLE_FINAL = "paises_agrupado"
 BUCKET_NAME = "event-driven-bucket-demo"
-SOURCE_OBJECTS = ["processed/*.csv"]
+SOURCE_OBJECTS = ["processed/paises.csv"]
 
 # Configuración por defecto del DAG
 default_args = {
@@ -20,30 +20,30 @@ default_args = {
 
 # Definición del DAG
 with DAG(
-    dag_id="gcs_to_bq_pipeline",
+    dag_id="paises_gcs_to_bq_pipeline",
     default_args=default_args,
-    description="Carga datos desde GCS a BigQuery y los transforma",
-    schedule_interval=None,  # Se puede activar por trigger externo
+    description="Carga y transforma archivo de países desde GCS a BigQuery",
+    schedule_interval=None,
     catchup=False,
-    tags=["gcp", "bigquery", "gcs", "etl"],
+    tags=["gcp", "bigquery", "gcs", "etl", "paises"],
 ) as dag:
 
-    # Tarea 1: Cargar datos desde GCS a una tabla RAW en BigQuery
+    # Tarea 1: Cargar CSV desde GCS a tabla raw en BigQuery
     load_to_bq = GCSToBigQueryOperator(
         task_id="load_from_gcs",
         bucket=BUCKET_NAME,
         source_objects=SOURCE_OBJECTS,
         destination_project_dataset_table=f"{PROJECT_ID}.{DATASET}.{TABLE_RAW}",
         schema_fields=[
-            {"name": "nombre", "type": "STRING", "mode": "NULLABLE"},
-            {"name": "valor", "type": "INTEGER", "mode": "NULLABLE"},
+            {"name": "pais", "type": "STRING", "mode": "NULLABLE"},
+            {"name": "estado", "type": "STRING", "mode": "NULLABLE"},
         ],
         skip_leading_rows=1,
         source_format="CSV",
         write_disposition="WRITE_TRUNCATE",
     )
 
-    # Tarea 2: Ejecutar una transformación y guardar en tabla final
+    # Tarea 2: Transformar datos (ejemplo: contar estados por país)
     transform_data = BigQueryInsertJobOperator(
         task_id="transform_data",
         configuration={
@@ -51,9 +51,10 @@ with DAG(
                 "query": f"""
                     CREATE OR REPLACE TABLE `{PROJECT_ID}.{DATASET}.{TABLE_FINAL}` AS
                     SELECT 
-                        nombre, 
-                        valor * 2 AS valor_doble
+                        pais, 
+                        COUNT(estado) AS cantidad_estados
                     FROM `{PROJECT_ID}.{DATASET}.{TABLE_RAW}`
+                    GROUP BY pais
                 """,
                 "useLegacySql": False,
             }
