@@ -14,7 +14,7 @@ jobs:
       - name: Autenticación en GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
 
       - name: Instalar Terraform
         uses: hashicorp/setup-terraform@v2
@@ -22,5 +22,8 @@ jobs:
       - name: Inicializar Terraform
         run: terraform -chdir=terraform init
 
+      - name: Ver proyecto
+        run: echo "Proyecto: ${{ secrets.GCP_PROJECT_ID }}"
+
       - name: Aplicar Terraform
-        run: terraform -chdir=terraform apply -auto-approve
+        run: terraform -chdir=terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
