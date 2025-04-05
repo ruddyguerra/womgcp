@@ -24,7 +24,7 @@ jobs:
         run: terraform -chdir=terraform init
 
       - name: Ver proyecto
-        run: echo "Proyecto: ${{ secrets.GCP_PROJECT_ID }}"
+        run: echo "Proyecto ${{ secrets.GCP_PROJECT_ID }}"
 
       - name: Aplicar Terraform
         run: terraform -chdir=terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
