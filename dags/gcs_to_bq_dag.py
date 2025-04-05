@@ -4,11 +4,11 @@ from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobO
 from datetime import datetime
 
 # Parámetros del entorno (ajustables)
-PROJECT_ID = "tu-proyecto"
-DATASET = "mi_dataset"
+PROJECT_ID = "wom-p1"
+DATASET = "ds_paises"
 TABLE_RAW = "paises_raw"
 TABLE_FINAL = "paises_agrupado"
-BUCKET_NAME = "event-driven-bucket-demo"
+BUCKET_NAME = "wom-bucket-demo"
 SOURCE_OBJECTS = ["processed/paises.csv"]
 
 # Configuración por defecto del DAG

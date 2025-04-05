@@ -12,7 +12,7 @@ resource "google_storage_bucket_object" "function_source" {
 resource "google_cloudfunctions_function" "function" {
   name        = var.function_name
   description = "Función que se activa cuando llega un archivo"
-  runtime     = "python39"
+  runtime     = "python311"
   entry_point = "hello_gcs"
   source_archive_bucket = google_storage_bucket.bucket.name
   source_archive_object = google_storage_bucket_object.function_source.name
