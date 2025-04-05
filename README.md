@@ -33,6 +33,15 @@ Este proyecto implementa una arquitectura en Google Cloud orientada a eventos. U
 
 - Proyecto activo en Google Cloud
 - APIs habilitadas: Cloud Functions, Storage, BigQuery, Composer
+    gcloud services enable \
+        storage.googleapis.com \
+        bigquery.googleapis.com \
+        cloudfunctions.googleapis.com \
+        composer.googleapis.com \
+        cloudbuild.googleapis.com \
+        artifactregistry.googleapis.com \
+        iam.googleapis.com
+
 - Cuenta de servicio con rol "Editor" y key en JSON
 - Instalar: Terraform, gcloud CLI, GitHub CLI
 
