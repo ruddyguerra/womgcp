@@ -29,7 +29,7 @@ jobs:
       - name: Aplicar Terraform
         run: terraform -chdir=terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
 
-      # Subir el código de la Cloud Function a GCS
+      # Subir el archivo de la Cloud Function a GCS
       - name: Subir archivo de la Cloud Function a GCS
         run: |
           gsutil cp ./cloud_function.zip gs://wom-bucket-demo/function-source.zip
@@ -48,5 +48,4 @@ jobs:
             --trigger-resource gs://wom-bucket-demo \
             --trigger-event google.storage.object.finalize \
             --region us-central1 \
-            --memory 128MB \
-            --env-vars-file .env.yaml
+            --memory 128MB
