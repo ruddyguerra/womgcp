@@ -74,9 +74,11 @@ terraform apply -auto-approve
 
 ## 3. CI/CD con GitHub Actions
 
-El repositorio incluye un workflow `.github/workflows/deploy.yml` que ejecuta `terraform apply` al hacer push en `main`.
+El repositorio incluye un workflow en .github/workflows/deploy.yml que automatiza el despliegue de tu infraestructura al hacer push en la rama main. Este workflow ejecuta los comandos de Terraform para crear o actualizar los recursos en Google Cloud Platform (GCP).
 
-Crea un secreto en GitHub: Para que GitHub Actions pueda autenticarse con Google Cloud y ejecutar Terraform, necesitas agregar los secretos de Google Cloud a tu repositorio en GitHub. Sigue estos pasos:
+Para que el pipeline funcione, necesitas configurar los secrets de autenticación en GitHub.
+
+Crear un secreto en GitHub: Para que GitHub Actions pueda autenticarse con Google Cloud y ejecutar Terraform, necesitas agregar los secretos de Google Cloud a tu repositorio en GitHub. Sigue estos pasos:
 
 1. **Ve a tu repositorio en GitHub**.
 2. **Haz clic en "Settings"** (Configuración) en el menú superior.
@@ -92,11 +94,12 @@ Luego, agrega los siguientes secretos:
   Para obtener este archivo:
   a. Ve a la **Console de Google Cloud**.
   b. Accede a **IAM & Admin** > **Service Accounts**.
-  c. Crea una nueva cuenta de servicio con los permisos adecuados (por ejemplo, **Editor**).
-  d. Descarga la clave de la cuenta de servicio en formato JSON.
-  e. Copia el contenido del archivo JSON y pégalo en el campo **Value** de GitHub Secrets.
+  c. Crea una nueva cuenta de servicio o usa una existente.
+  d. Asígnale los roles necesarios: Cloud Functions Admin, Storage Admin, Service Account User
+  e. Descarga la clave de la cuenta de servicio en formato JSON.
+  f. Copia el contenido del archivo JSON y pégalo en el campo **Value** de GitHub Secrets.
 
-   **Nota:** Asegúrate de mantener este archivo seguro, ya que contiene las credenciales de acceso a tu proyecto de Google Cloud.
+   **Nota:** Hay que mantener este archivo seguro, ya que contiene las credenciales de acceso a tu proyecto de Google Cloud.
 
 5. Haz clic en **"Add secret"** para cada secreto.
 
