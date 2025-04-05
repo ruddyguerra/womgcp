@@ -1,7 +1,8 @@
 
-# GCP Event-Driven Pipeline con Terraform, Cloud Functions y Airflow
+# GCP Event-Driven Pipeline con Terraform, GCP y Airflow
 
 Este proyecto implementa una arquitectura en Google Cloud orientada a eventos. Usa Terraform para la infraestructura, Cloud Functions para procesamiento de archivos y un DAG en Apache Airflow para cargar y transformar datos en BigQuery.
+La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) que se pueden subir manualmente al cloud storage. Se procesa esos archivos con una Cloud Function, luego Airflow toma esos archivos y los carga a BigQuery y finalmente, transforma los datos y los guarda en una nueva tabla en BigQuery.
 
 ## Arquitectura General
 
