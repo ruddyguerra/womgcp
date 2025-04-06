@@ -50,30 +50,23 @@ resource "google_storage_bucket_object" "dag_file" {
 
 # Crear el entorno de Cloud Composer (Airflow)
 resource "google_composer_environment" "airflow" {
-  name    = "airflow-env"  # Nombre del entorno
-  region  = var.region     # Región donde se desplegará el entorno
-  project = var.project_id # ID del proyecto de GCP
+  name    = "airflow-env"
+  region  = var.region
+  project = var.project_id
 
   config {
-    node_count = 3  # Número de nodos que tendrá el entorno de Cloud Composer
-
-    # Configuración del software
+    node_count = 3
     software_config {
-      image_version = "composer-1.10.4-airflow-2.1.0"  # Versión de Composer y Airflow a usar
-    }
-
-    # Configuración adicional de la infraestructura
-    private_environment_config {
-      enable_private_endpoint = true  # Para habilitar un punto de acceso privado
+      image_version = "composer-1.10.4-airflow-2.1.0"
     }
   }
 }
 
 
-# Dar permisos de lectura al archivo DAG en GCS para Cloud Composer
-resource "google_storage_bucket_object_acl" "dag_file_acl" {
+# Configuración de IAM para otorgar permisos a los usuarios para acceder al archivo DAG en GCS
+resource "google_storage_bucket_object_iam_member" "dag_file_iam" {
   bucket = google_storage_bucket.bucket.name
   object = google_storage_bucket_object.dag_file.name
-  role   = "READER"
-  entity = "allUsers"
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"  # Puede ser un usuario específico o un grupo
 }
