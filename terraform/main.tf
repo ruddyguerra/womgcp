@@ -64,9 +64,8 @@ resource "google_composer_environment" "airflow" {
 
 
 # Configuración de IAM para otorgar permisos a los usuarios para acceder al archivo DAG en GCS
-resource "google_storage_bucket_object_iam_member" "dag_file_iam" {
-  bucket = google_storage_bucket.bucket.name
-  object = google_storage_bucket_object.dag_file.name
-  role   = "roles/storage.objectViewer"
+resource "google_storage_bucket_iam_member" "dag_file_iam" {
+  bucket = google_storage_bucket.bucket.name  # Nombre del bucket
+  role   = "roles/storage.objectViewer"  # Rol que se le otorga
   member = "allUsers"  # Puede ser un usuario específico o un grupo
 }
