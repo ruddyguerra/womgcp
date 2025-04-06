@@ -56,6 +56,7 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
 - Para pruebas en local instalar: Terraform, gcloud CLI, GitHub CLI
 
 ## 1. Empaquetar la Cloud Function
+Ya se encuentra empaquetado pero si se actualiza el código se debe volver a generar manualmente el zip
 
 cd cloud_function
 zip -r ../cloud_function.zip .
