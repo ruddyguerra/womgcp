@@ -55,12 +55,17 @@ resource "google_composer_environment" "airflow" {
   project = var.project_id
 
   config {
-    node_count = 3
     software_config {
-      image_version = "composer-3-airflow-2.10.2"
+      image_version = "composer-3-airflow-2.10.2"  # Usar una versión soportada de Composer
+    }
+
+    # Puedes usar la configuración de nodo como 'node_config' si es necesario
+    node_config {
+      machine_type = "n1-standard-1"  # Puedes configurar el tipo de máquina aquí
     }
   }
 }
+
 
 # Configuración de IAM para otorgar permisos a los usuarios para acceder al archivo DAG en GCS
 resource "google_storage_bucket_iam_member" "dag_file_iam" {
