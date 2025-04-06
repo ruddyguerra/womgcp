@@ -150,7 +150,7 @@ Luego, agrega los siguientes secretos:
   Ejemplo: `wom-p1`.
 
 - **`GCP_SERVICE_ACCOUNT_EMAIL`**: La cuenta de servicio
-  Ejemplo: `github-deployer@wom-p1.iam.gserviceaccount.com`.
+  Ejemplo: `wom-gcs-trigger-function@wom-p1.iam.gserviceaccount.com`.
 
 - **`GCP_CREDENTIALS_JSON`**: El contenido del archivo JSON de la cuenta de servicio de Google Cloud.  
   Para obtener este archivo:
