@@ -47,3 +47,25 @@ resource "google_storage_bucket_object" "dag_file" {
   bucket = google_storage_bucket.bucket.name  # El bucket donde se subirá el archivo
   source = "../dags/gcs_to_bq_dag.py"  # Ruta local del archivo DAG
 }
+
+# Crear el entorno de Cloud Composer (Airflow)
+resource "google_composer_environment" "airflow" {
+  name    = "airflow-env"
+  region  = var.region
+  project = var.project_id
+
+  config {
+    node_count = 3
+    software_config {
+      image_version = "composer-1.10.4-airflow-2.1.0"
+    }
+  }
+}
+
+# Dar permisos de lectura al archivo DAG en GCS para Cloud Composer
+resource "google_storage_bucket_object_acl" "dag_file_acl" {
+  bucket = google_storage_bucket.bucket.name
+  object = google_storage_bucket_object.dag_file.name
+  role   = "READER"
+  entity = "allUsers"
+}

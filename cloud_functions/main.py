@@ -5,10 +5,6 @@ def process_file(event, context):
     """
     Cloud Function que se activa cuando se sube un archivo a un bucket GCS.
     Lee el contenido del archivo y lo guarda procesado en la carpeta /processed.
-
-    Args:
-        event (dict): Información del evento GCS (nombre del bucket, nombre del archivo, etc.).
-        context (google.cloud.functions.Context): Metadata del evento (ID, timestamp, etc.).
     """
     bucket_name = event['bucket']
     file_name = event['name']
