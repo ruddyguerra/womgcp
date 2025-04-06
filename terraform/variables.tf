@@ -19,3 +19,9 @@ variable "region" {
   default     = "us-central1"
 }
 
+variable "service_account" {
+  description = "Cuenta de servicio"
+  type        = string
+  default     = "github-deployer@wom-p1.iam.gserviceaccount.com"
+}
+

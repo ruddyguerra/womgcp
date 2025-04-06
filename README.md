@@ -70,6 +70,7 @@ project_id    = "wom-p1"
 region        = "us-central1"
 bucket_name   = "wom-bucket-demo"
 function_name = "wom-gcs-trigger-function"
+service_account = "github-deployer@wom-p1.iam.gserviceaccount.com"
 
 Inicializa y aplica:
 
@@ -95,6 +96,9 @@ Luego, agrega los siguientes secretos:
 
 - **`GCP_PROJECT_ID`**: El ID de tu proyecto en Google Cloud.  
   Ejemplo: `wom-p1`.
+
+- **`GCP_SERVICE_ACCOUNT_EMAIL`**: La cuenta de servicio
+  Ejemplo: `github-deployer@wom-p1.iam.gserviceaccount.com`.
 
 - **`GCP_CREDENTIALS_JSON`**: El contenido del archivo JSON de la cuenta de servicio de Google Cloud.  
   Para obtener este archivo:

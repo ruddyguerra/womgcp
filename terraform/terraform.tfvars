@@ -1,4 +1,5 @@
-project_id    = "mi-proyecto"
+project_id    = "wom-p1"
 region        = "us-central1"
-bucket_name   = "event-driven-bucket-demo"
-function_name = "gcs-trigger-function"
+bucket_name   = "wom-bucket-demo"
+function_name = "wom-gcs-trigger-function"
+service_account = "github-deployer@wom-p1.iam.gserviceaccount.com"

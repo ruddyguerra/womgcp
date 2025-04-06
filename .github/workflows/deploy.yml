@@ -43,9 +43,11 @@ jobs:
       - name: Desplegar Cloud Function en GCP
         run: |
           gcloud functions deploy your-function-name \
-            --entry-point hello_gcs \
+            --entry-point process_file \
             --runtime python311 \
             --trigger-resource gs://wom-bucket-demo \
             --trigger-event google.storage.object.finalize \
             --region us-central1 \
-            --memory 128MB
+            --memory 128MB \
+            --service-account "${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
+

@@ -1,7 +1,7 @@
 import os
 from google.cloud import storage
 
-def hello_gcs(event, context):
+def process_file(event, context):
     """
     Cloud Function que se activa cuando se sube un archivo a un bucket GCS.
     Lee el contenido del archivo y lo guarda procesado en la carpeta /processed.

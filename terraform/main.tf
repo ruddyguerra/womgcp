@@ -13,22 +13,25 @@ resource "google_storage_bucket_object" "function_source" {
 
 # Recurso para crear la Cloud Function
 resource "google_cloudfunctions_function" "function" {
-  name        = var.function_name            # Nombre de la Cloud Function
-  description = "Función que se activa cuando llega un archivo"  
-  runtime     = "python311"                   # Runtime de la función
-  entry_point = "hello_gcs"                   # Punto de entrada de la función
-  source_archive_bucket = google_storage_bucket.bucket.name  # El bucket donde está el código comprimido
-  source_archive_object = google_storage_bucket_object.function_source.name  # El archivo comprimido con el código fuente
+  name        = var.function_name
+  description = "Función que se activa cuando llega un archivo"
+  runtime     = "python311"
+  entry_point = "process_file"
+  source_archive_bucket = google_storage_bucket.bucket.name
+  source_archive_object = google_storage_bucket_object.function_source.name
 
-  available_memory_mb   = 128  # Memoria asignada a la función (en MB)
-  region                = var.region  # Región donde se desplegará la función
-  environment_variables = {}  # Variables de entorno (puedes agregar aquí las necesarias)
+  available_memory_mb   = 128
+  region                = var.region
+  environment_variables = {}  # Variables de entorno
 
-  # Configuración del trigger (evento) para activar la función
+  # Configuración del trigger
   event_trigger {
-    event_type = "google.storage.object.finalize"  # Evento cuando se agrega un archivo a GCS
-    resource   = google_storage_bucket.bucket.name  # El bucket que activa la función
+    event_type = "google.storage.object.finalize"
+    resource   = google_storage_bucket.bucket.name
   }
+
+  # Asignar la cuenta de servicio a la Cloud Function
+  service_account_email = var.service_account
 }
 
 # Recurso para dar permisos de invocación a todos los usuarios
