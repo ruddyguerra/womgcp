@@ -28,26 +28,3 @@ jobs:
 
       - name: Aplicar Terraform
         run: terraform -chdir=terraform apply -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
-
-      # Subir el archivo de la Cloud Function a GCS
-      - name: Subir archivo de la Cloud Function a GCS
-        run: |
-          gsutil cp ./cloud_function.zip gs://wom-bucket-demo/function-source.zip
-
-      # Subir el archivo DAG a GCS
-      - name: Subir archivo DAG a GCS
-        run: |
-          gsutil cp ./dags/gcs_to_bq_dag.py gs://wom-bucket-demo/dags/
-
-      # Desplegar la Cloud Function usando el archivo subido
-      - name: Desplegar Cloud Function en GCP
-        run: |
-          gcloud functions deploy your-function-name \
-            --entry-point process_file \
-            --runtime python311 \
-            --trigger-resource gs://wom-bucket-demo \
-            --trigger-event google.storage.object.finalize \
-            --region us-central1 \
-            --memory 128MB \
-            --service-account "${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
-

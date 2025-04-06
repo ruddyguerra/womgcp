@@ -102,6 +102,15 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
     --role="roles/iam.serviceAccountUser" \
     --project=$PROJECT_ID
 
+    gcloud projects add-iam-policy-binding wom-p1 \
+    --member="serviceAccount:github-deployer@wom-p1.iam.gserviceaccount.com" \
+    --role="roles/storage.admin"
+
+    gcloud iam service-accounts add-iam-policy-binding wom-gcs-trigger-function@wom-p1.iam.gserviceaccount.com \
+    --member="serviceAccount:github-deployer@wom-p1.iam.gserviceaccount.com" \
+    --role="roles/iam.serviceAccountUser" \
+    --project=wom-p1
+
 
 
 - Para pruebas en local instalar: Terraform, gcloud CLI, GitHub CLI
