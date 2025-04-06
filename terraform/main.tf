@@ -8,7 +8,7 @@ resource "google_storage_bucket" "bucket" {
 resource "google_storage_bucket_object" "function_source" {
   name   = "function-source.zip"            # Nombre del archivo en GCS
   bucket = google_storage_bucket.bucket.name  # El bucket al que se subirá el archivo
-  source = "${path.module}/cloud_function.zip"  # Ruta local del archivo comprimido de la Cloud Function
+  source = "../cloud_function.zip"  # Ruta local del archivo comprimido de la Cloud Function
 }
 
 # Recurso para crear la Cloud Function
@@ -35,12 +35,12 @@ resource "google_cloudfunctions_function" "function" {
 resource "google_project_iam_member" "invoker" {
   project = var.project_id  # ID del proyecto en GCP
   role    = "roles/cloudfunctions.invoker"  # Rol que permite invocar la función
-  member  = "allUsers"  # Los permisos se conceden a todos los usuarios
+  member = "user:allUsers"  # Los permisos se conceden a todos los usuarios
 }
 
 # Recurso para subir el archivo DAG a GCS, necesario para la integración con Airflow
 resource "google_storage_bucket_object" "dag_file" {
   name   = "gcs_to_bq_dag.py"  # Nombre del archivo DAG en GCS
   bucket = google_storage_bucket.bucket.name  # El bucket donde se subirá el archivo
-  source = "${path.module}/dags/gcs_to_bq_dag.py"  # Ruta local del archivo DAG
+  source = "../dags/gcs_to_bq_dag.py"  # Ruta local del archivo DAG
 }
