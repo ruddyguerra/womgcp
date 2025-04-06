@@ -16,23 +16,22 @@ resource "google_cloudfunctions_function" "function" {
   name        = var.function_name
   description = "Función que se activa cuando llega un archivo"
   runtime     = "python311"
-  entry_point = "process_file"
+  entry_point = "hello_gcs"
   source_archive_bucket = google_storage_bucket.bucket.name
   source_archive_object = google_storage_bucket_object.function_source.name
-
   available_memory_mb   = 128
   region                = var.region
-  environment_variables = {}  # Variables de entorno
+  environment_variables = {}
 
-  # Configuración del trigger
+  # Configuración de la cuenta de servicio directamente aquí
+  service_account_email = var.service_account  # Aquí es donde pones el email de la cuenta de servicio
+
   event_trigger {
     event_type = "google.storage.object.finalize"
     resource   = google_storage_bucket.bucket.name
   }
-
-  # Asignar la cuenta de servicio a la Cloud Function
-  service_account_email = var.service_account
 }
+  
 
 # Recurso para dar permisos de invocación a todos los usuarios
 resource "google_cloudfunctions_function_iam_member" "invoker" {
