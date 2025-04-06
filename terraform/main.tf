@@ -58,11 +58,6 @@ resource "google_composer_environment" "airflow" {
     software_config {
       image_version = "composer-3-airflow-2.10.2"  # Usar una versión soportada de Composer
     }
-
-    # Puedes usar la configuración de nodo como 'node_config' si es necesario
-    node_config {
-      machine_type = "n1-standard-1"  # Puedes configurar el tipo de máquina aquí
-    }
   }
 }
 
