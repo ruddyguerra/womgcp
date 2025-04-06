@@ -85,6 +85,12 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
     --role="roles/iam.serviceAccountUser" \
     --project=wom-p1
 
+    gcloud iam service-accounts add-iam-policy-binding \
+    --role="roles/iam.serviceAccountUser" \
+    --member="user:ruddyguerraarias@gmail.com" \
+    projects/wom-p1/serviceAccounts/github-deployer@wom-p1.iam.gserviceaccount.com
+
+
 - Para pruebas en local instalar: Terraform, gcloud CLI, GitHub CLI
 
 ## 1. Empaquetar la Cloud Function
