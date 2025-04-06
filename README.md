@@ -158,9 +158,6 @@ Luego, agrega los siguientes secretos:
 - **`GCP_PROJECT_ID`**: El ID de tu proyecto en Google Cloud.  
   Ejemplo: `wom-p1`.
 
-- **`GCP_SERVICE_ACCOUNT_EMAIL`**: La cuenta de servicio
-  Ejemplo: `wom-gcs-trigger-function@wom-p1.iam.gserviceaccount.com`.
-
 - **`GCP_CREDENTIALS_JSON`**: El contenido del archivo JSON de la cuenta de servicio de Google Cloud.  
   Para obtener este archivo:
   a. Ve a la **Console de Google Cloud**.
@@ -192,8 +189,24 @@ gcloud composer environments run <tu-env> \
 
 terraform destroy -auto-approve
 
-## Notas
+## TEST
 
-- El DAG trabaja con archivos CSV en la carpeta `processed/` del bucket
-- BigQuery debe tener la tabla de destino creada o el DAG la debe crear
-- Todo es parametrizable y adaptado a tu entorno
+1. Define una arquitectura orientada a eventos, en donde al recibir un archivo en un
+bucket este se procese.
+2. Desarrolle un pipeline de GitLab CI/CD o en GitHub que despliegue una Cloud
+Function a través de terraform.
+3. Construya un DAG de airflow que utilice operadores nativos para tomar un archivo
+desde un bucket e inserte en BigQuery, posteriormente ejecutar una query que
+transforme la información y guarde el resultado en una nueva tabla.
+
+Las 3 primeras preguntas se resuelven con la solucion implementada.
+
+4. Se necesita utilizar una API para que nuestro call center llame a nuestros clientes.
+Esta API puede recibir un máximo de 10 request/segundo, además cada 1 hora se
+generan en promedio 600 registros.
+a. Indicar que preguntas realizarías como especialista técnico a las áreas de
+negocio
+b. Indicar que preguntas realizarías como especialista técnico al proveedor de la
+API
+c. Diseñe y diagrame una arquitectura
+d. Justifique adecuadamente su arquitectura
