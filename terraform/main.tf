@@ -35,7 +35,7 @@ resource "google_cloudfunctions_function" "function" {
 resource "google_project_iam_member" "invoker" {
   project = var.project_id  # ID del proyecto en GCP
   role    = "roles/cloudfunctions.invoker"  # Rol que permite invocar la función
-  member = "user:allUsers"  # Los permisos se conceden a todos los usuarios
+  member = "allUsers"  # Los permisos se conceden a todos los usuarios
 }
 
 # Recurso para subir el archivo DAG a GCS, necesario para la integración con Airflow
