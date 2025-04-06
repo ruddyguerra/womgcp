@@ -80,7 +80,6 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
     --member="serviceAccount:github-deployer@wom-p1.iam.gserviceaccount.com" \
     --role="roles/cloudfunctions.developer"
 
-
     gcloud iam service-accounts add-iam-policy-binding wom-p1@appspot.gserviceaccount.com \
     --member="serviceAccount:github-deployer@wom-p1.iam.gserviceaccount.com" \
     --role="roles/iam.serviceAccountUser" \
