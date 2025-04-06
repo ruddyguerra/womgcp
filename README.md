@@ -96,6 +96,13 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
     --member="user:ruddyguerraarias@gmail.com" \
     --project=wom-p1
 
+    gcloud iam service-accounts add-iam-policy-binding \
+    wom-gcs-trigger-function@$PROJECT_ID.iam.gserviceaccount.com \
+    --member="serviceAccount:github-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
+    --role="roles/iam.serviceAccountUser" \
+    --project=$PROJECT_ID
+
+
 
 - Para pruebas en local instalar: Terraform, gcloud CLI, GitHub CLI
 
@@ -115,6 +122,7 @@ region        = "us-central1"
 bucket_name   = "wom-bucket-demo"
 function_name = "wom-gcs-trigger-function"
 service_account = "github-deployer@wom-p1.iam.gserviceaccount.com"
+service_account_cf = "wom-gcs-trigger-function@wom-p1.iam.gserviceaccount.com"
 
 Inicializa y aplica:
 

@@ -24,7 +24,7 @@ resource "google_cloudfunctions_function" "function" {
   environment_variables = {}
 
   # Configuración de la cuenta de servicio directamente aquí
-  service_account_email = var.service_account  # Aquí es donde pones el email de la cuenta de servicio
+  service_account_email = var.service_account_cf  # Aquí es donde pones el email de la cuenta de servicio
 
   event_trigger {
     event_type = "google.storage.object.finalize"

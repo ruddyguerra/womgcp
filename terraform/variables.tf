@@ -25,3 +25,8 @@ variable "service_account" {
   default     = "github-deployer@wom-p1.iam.gserviceaccount.com"
 }
 
+variable "service_account_cf" {
+  description = "Cuenta de servicio"
+  type        = string
+}
+
