@@ -85,6 +85,7 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
     --role="roles/iam.serviceAccountUser" \
     --project=wom-p1
 
+
     gcloud iam service-accounts add-iam-policy-binding \
     --role="roles/iam.serviceAccountUser" \
     --member="user:ruddyguerraarias@gmail.com" \
