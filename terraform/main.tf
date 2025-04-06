@@ -6,9 +6,9 @@ resource "google_storage_bucket" "bucket" {
 
 # Recurso para subir el código fuente de la Cloud Function al bucket de GCS
 resource "google_storage_bucket_object" "function_source" {
-  name   = "function-source.zip"            # Nombre del archivo en GCS
-  bucket = google_storage_bucket.bucket.name  # El bucket al que se subirá el archivo
-  source = "../cloud_function.zip"  # Ruta local del archivo comprimido de la Cloud Function
+  name   = "function-source.zip"            
+  bucket = google_storage_bucket.bucket.name  
+  source = "../cloud_function.zip"
 }
 
 # Recurso para crear la Cloud Function
@@ -24,14 +24,13 @@ resource "google_cloudfunctions_function" "function" {
   environment_variables = {}
 
   # Configuración de la cuenta de servicio directamente aquí
-  service_account_email = var.service_account_cf  # Aquí es donde pones el email de la cuenta de servicio
+  service_account_email = var.service_account_cf
 
   event_trigger {
     event_type = "google.storage.object.finalize"
     resource   = google_storage_bucket.bucket.name
   }
 }
-  
 
 # Recurso para dar permisos de invocación a todos los usuarios
 resource "google_cloudfunctions_function_iam_member" "invoker" {
