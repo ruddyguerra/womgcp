@@ -47,9 +47,13 @@ La solución como tal recibe archivos CSV con datos (por ejemplo, paises.csv) qu
         cloudbuild.googleapis.com \
         artifactregistry.googleapis.com \
         iam.googleapis.com
-
 - Cuenta de servicio con rol "Editor" y key en JSON
-- Instalar: Terraform, gcloud CLI, GitHub CLI
+- Ejecutar el binding para iam.serviceAccountUser
+    gcloud iam service-accounts add-iam-policy-binding wom-p1@appspot.gserviceaccount.com \
+    --member="serviceAccount:github-deployer@wom-p1.iam.gserviceaccount.com" \
+    --role="roles/iam.serviceAccountUser" \
+    --project=wom-p1
+- Para pruebas en local instalar: Terraform, gcloud CLI, GitHub CLI
 
 ## 1. Empaquetar la Cloud Function
 
@@ -82,8 +86,9 @@ Crear un secreto en GitHub: Para que GitHub Actions pueda autenticarse con Googl
 
 1. **Ve a tu repositorio en GitHub**.
 2. **Haz clic en "Settings"** (Configuración) en el menú superior.
-3. En el menú lateral izquierdo, selecciona **"Secrets"**.
-4. Haz clic en el botón **"New repository secret"**.
+3. En el menú lateral izquierdo, selecciona **"Secrets and variables"**.
+4. Haz clic en Actions
+5. Haz clic en el botón **"New repository secret"**.
 
 Luego, agrega los siguientes secretos:
 
